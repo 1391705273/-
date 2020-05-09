@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CommodityMapper">
+
+    <resultMap id="commodityMap" type="com.example.demo.entity.Commodity">
+        <id property="id" column="id"/>
+        <result property="commodityName" column="commodity_name"/>
+        <result property="amount" column="amount"/>
+        <result property="price" column="price"/>
+        <result property="buyer" column="buyer"/>
+    </resultMap>
+
+    <!--  新增商品  -->
+    <insert id="insertCommodity">
+        insert into `commodity`(`commodity_name`,amount,price,buyer)
+        values (#{commodityName},#{amount},#{price},#{buyer})
+    </insert>
+
+    <!--  删除商品  -->
+    <delete id="delCommodity">
+        delete FROM commodity where id = #{id}
+    </delete>
+
+    <!--  更改商品数据  -->
+    <update id="updateCommodity">
+        UPDATE commodity
+        <set>
+            <if test="commodityName !=null and commodityName != ''">
+                commodity_name = #{commodityName}
+            </if>
+
+            <if test="amount !=null and amount != ''">
+                amount = #{amount}
+            </if>
+
+            <if test="price !=null and price != ''">
+                price = #{price}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--  查询商品列表  -->
+    <select id="getCommodity" resultMap="commodityMap">
+        select id,commodity_name,amount,price,buyer from commodity;
+    </select>
+
+    <!--  根据商品id查询商品数据  -->
+    <select id="getCommodityById"  resultMap="commodityMap">
+        select id,commodity_name,amount,price,buyer from commodity where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>售出商品列表</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<title>Title</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/bootstrap-table.min.css">
+<link href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<style>
+    #tbody{
+        position:absolute;
+        left:525px;
+        top:100px;
+    }
+
+    #back{
+        position:absolute;
+        left:525px;
+        top:75px;
+    }
+
+    #insert{
+        position:absolute;
+        left:200px;
+        top:45px;
+    }
+
+    #logout{
+        position:absolute;
+        left:1100px;
+    }
+</style>
+<button id="logout">注销</button>
+<button id="back">返回</button>
+<body>
+<div id="tbody">
+    <button id="but">出售商品</button>
+    <table border="1" id="table">
+        <thead>
+        <tr>
+            <th data-field="commodityName" id="commodityName">商品名称</th>
+            <th data-field="amount" id="amount">商品数量</th>
+            <th data-field="price" id="price">商品售价</th>
+            <th data-field="id" id="id">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div id="insert" style="display: none;">
+    商品名称:<input id="insertCommodityName">
+    商品数量:<input type="number" min="0" id="insertAmount">
+    商品进价:<input type="number" min="0" id="insertPrice">
+    <button type="submit" id="ton">增加</button>
+    <button id="esc">取消</button>
+</div>
+</body>
+<script src="/js/jquery.min1.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.js"></script>
+<script>
+    $(function () {
+        init()
+    })
+    function init() {
+        $.ajax({
+            url: "getSell",
+            type: "GET",
+            data: {
+                commodityName: $("#commodityName").val(),
+                amount:$("#amount").val(),
+                price:$("#sellPrice").val(),
+            },
+            success: function (data) {
+                for (var i of data) {
+                    $("#table").append('<tr><td>' + i.commodityName + '</td>' +
+                        '<td>' + i.amount + '</td>' + '<td>' + i.sellPrice + '</td><td><button onclick="edit(\'' + i.id + '\')">编辑</button><button onclick="del(\'' + i.id + '\')">删除</button></td></tr>')
+                }
+            }
+        })
+    }
+    $("#but").click(function () {
+        $("#insert").show();
+    })
+
+    $("#esc").click(function(){
+        $("#insert").hide();
+    })
+
+    function del(id) {
+        var r = confirm("确定要删除此信息吗？");
+        if (r == true) {
+            $.ajax({
+                url: "delSell",
+                type: "post",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data == "已删除售出商品!") {
+                        alert(data),
+                        $("#table").html(' <thead>\n' +
+                            '        <tr>\n' +
+                            '            <th data-field="commodityName" id="commodityName">商品名称</th>\n' +
+                            '            <th data-field="amount" id="amount">商品数量</th>\n' +
+                            '            <th data-field="price" id="price">商品售价</th>\n' +
+                            '            <th data-field="id" id="id">操作</th>\n' +
+                            '        </tr>\n' +
+                            '        </thead>'),
+                        init()
+                    }
+                }
+            })
+        }
+    }
+
+    $("#ton").click(function () {
+            $.ajax({
+                url: "insertSell",
+                type: "post",
+                data: {
+                    commodityName: $("#insertCommodityName").val(),
+                    amount:$("#insertAmount").val(),
+                    price:$("#insertPrice").val(),
+                },
+                success:function (data) {
+                if ( data == "已成功售出商品!"){
+                    alert(data)
+                    $("#table").html(' <thead>\n' +
+                        '        <tr>\n' +
+                        '            <th data-field="commodityName" id="commodityName">商品名称</th>\n' +
+                        '            <th data-field="amount" id="amount">商品数量</th>\n' +
+                        '            <th data-field="price" id="price">商品售价</th>\n' +
+                        '            <th data-field="id" id="id">操作</th>\n' +
+                        '        </tr>\n' +
+                        '        </thead>')
+                    init()
+                    $("#insert").hide();
+                } else {
+                    alert(data)
+                }
+            }
+        })
+    })
+
+    $("#back").click(function () {
+        location.href = "/home"
+    })
+
+    $("#logout").click(function () {
+        var r = confirm("确定注销此账号吗？");
+        if (r == true) {
+            location.href = "/index"
+        }
+    })
+</script>
+</html>

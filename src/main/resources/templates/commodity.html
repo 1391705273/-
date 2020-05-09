@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>进货库存</title>
+    <style>
+        #tbody{
+            position:absolute;
+            left:525px;
+            top:100px;
+        }
+
+        #back{
+            position:absolute;
+            left:525px;
+            top:75px;
+        }
+
+        #insert{
+            position:absolute;
+            left:200px;
+            top:45px;
+        }
+
+        #logout{
+            position:absolute;
+            left:1100px;
+        }
+    </style>
+</head>
+<button id="back">返回</button>
+<button id="logout">注销</button>
+<body>
+    <div id="tbody">
+        <button id="but">新增商品</button>
+        <table border="1" id="table">
+            <thead>
+            <tr>
+                <th data-field="commodityName" id="commodityName">商品名称</th>
+                <th data-field="amount" id="amount">商品数量</th>
+                <th data-field="price" id="price">商品进价</th>
+                <th data-field="buyer" id="buyer">进货人员</th>
+                <th data-field="id" id="id">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="insert" style="display: none;">
+        商品名称:<input id="insertCommodityName">
+        商品数量:<input type="number" min="0" id="insertAmount">
+        商品进价:<input type="number" min="0" id="insertPrice">
+        进货人员:<select id="insertBuyer">
+                    <option value ="admin">admin</option>
+                    <option value ="lzc">lzc</option>
+                    <option value="hyq">hyq</option>
+                    <option value="xyq">xyq</option>
+                </select>
+        <button type="submit" id="ton">增加</button>
+        <button id="esc">取消</button>
+    </div>
+</body>
+<script src="/js/jquery.min1.js"></script>
+<script>
+    $(function () {
+        init()
+    })
+    function init(){
+        $.ajax({
+            url: "getCommodity",
+            type: "GET",
+            data: {
+                commodityName: $("#commodityName").val(),
+                amount:$("#amount").val(),
+                price:$("#price").val(),
+                buyer:$("#buyer").val(),
+            },
+            success: function (data) {
+                for (var i of data) {
+                    $("#table").append('<tr><td>' + i.commodityName + '</td>' +
+                        '<td>' + i.amount + '</td>' + '<td>' + i.price + '</td>' + '<td>'+ i.buyer + '</td> <td><button onclick="edit(\'' + i.id + '\')">编辑</button><button onclick="del(\'' + i.id + '\')">删除</button></td></tr>')
+                }
+            }
+        })
+    }
+
+    $("#but").click(function(){
+        $("#insert").show();
+    })
+
+    $("#esc").click(function(){
+        $("#insert").hide();
+    })
+
+    $("#ton").click(function () {
+        $.ajax({
+            url: "insertCommodity",
+            type: "post",
+            data: {
+                commodityName: $("#insertCommodityName").val(),
+                amount:$("#insertAmount").val(),
+                price:$("#insertPrice").val(),
+                buyer:$("#insertBuyer").val(),
+            },
+            success:function (data) {
+                if ( data == "新增成功！"){
+                    alert(data)
+                    $("#table").html('<thead>\n' +
+                        '            <tr>\n' +
+                        '                <th data-field="commodityName" id="commodityName">商品名称</th>\n' +
+                        '                <th data-field="amount" id="amount">商品数量</th>\n' +
+                        '                <th data-field="price" id="price">商品进价</th>\n' +
+                        '                <th data-field="buyer" id="buyer">进货人员</th>\n' +
+                        '                <th data-field="id" id="id">操作</th>\n' +
+                        '            </tr>\n' +
+                        '            </thead>')
+                    init()
+                    $("#insert").hide();
+                }else {
+                    alert(data)
+                }
+            }
+        })
+    })
+
+    function del(id) {
+        var r = confirm("确定要删除此信息吗？");
+        if (r == true) {
+            $.ajax({
+                url: "delCommodity",
+                type: "post",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data == "商品已下架！") {
+                        alert(data),
+                            $("#table").html(' <thead>\n' +
+                                '            <tr>\n' +
+                                '                <th data-field="commodityName" id="commodityName">商品名称</th>\n' +
+                                '                <th data-field="amount" id="amount">商品数量</th>\n' +
+                                '                <th data-field="price" id="price">商品进价</th>\n' +
+                                '                <th data-field="buyer" id="buyer">进货人员</th>\n' +
+                                '                <th data-field="id" id="id">操作</th>\n' +
+                                '            </tr>\n' +
+                                '            </thead>'),
+                            init()
+                    }
+                }
+            })
+        }
+    }
+    function edit(id) {
+        location.href = "/editCommodity?id=" + id;
+    }
+
+    $("#back").click(function () {
+        location.href = "/home"
+    })
+
+    $("#logout").click(function () {
+        var r = confirm("确定注销此账号吗？");
+        if (r == true) {
+            location.href = "/index"
+        }
+    })
+</script>
+</html>

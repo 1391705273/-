@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.SellMapper">
+
+    <resultMap id="sellMap" type="com.example.demo.entity.Sell">
+        <id property="id" column="id"/>
+        <result property="commodityName" column="commodity_name"/>
+        <result property="amount" column="amount"/>
+        <result property="sellPrice" column="sell_price"/>
+    </resultMap>
+
+    <insert id="insertSell">
+        insert into `sell`(`commodity_name`,amount,sell_price)
+        values (#{commodityName},#{amount},#{sellPrice})
+    </insert>
+
+    <delete id="delSell">
+        delete FROM sell where id = #{id}
+    </delete>
+
+    <update id="updateSell">
+        UPDATE sell
+        <set>
+            <if test="commodityName !=null and commodityName != ''">
+                commodity_name = #{commodityName}
+            </if>
+
+            <if test="amount !=null and amount != ''">
+                amount = #{amount}
+            </if>
+
+            <if test="sellPrice !=null and sellPrice != ''">
+                sell_price = #{sellPrice}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getSell" resultMap="sellMap">
+        select id,commodity_name,amount,sell_price from sell;
+    </select>
+</mapper>
