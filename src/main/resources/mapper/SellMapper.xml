@@ -23,11 +23,11 @@
         <set>
             <if test="commodityName !=null and commodityName != ''">
                 commodity_name = #{commodityName}
-            </if>
+            </if>,
 
             <if test="amount !=null and amount != ''">
                 amount = #{amount}
-            </if>
+            </if>,
 
             <if test="sellPrice !=null and sellPrice != ''">
                 sell_price = #{sellPrice}
@@ -38,5 +38,9 @@
 
     <select id="getSell" resultMap="sellMap">
         select id,commodity_name,amount,sell_price from sell;
+    </select>
+
+    <select id="getSellById" resultMap="sellMap">
+        select * from sell where id = #{id}
     </select>
 </mapper>

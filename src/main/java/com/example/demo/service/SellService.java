@@ -17,4 +17,7 @@ public interface SellService {
 
     // 查询商品列表
     List<Sell> getSell();
+
+    // 根据id查询售出商品的数据
+    List<Sell> getSellById(Integer id);
 }

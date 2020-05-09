@@ -18,6 +18,16 @@ public class SellController {
     public SellService sellService;
 
     /**
+     * 修改售出商品页面
+     * @return
+     */
+    @GetMapping("/editSell")
+    public String editSell(){
+        return "editSell";
+    }
+
+
+    /**
      *出售商品列表
      * @return
      */
@@ -68,5 +78,11 @@ public class SellController {
     @ResponseBody
     public List<Sell> getSell() {
         return sellService.getSell();
+    }
+
+    @GetMapping("/getSellById")
+    @ResponseBody
+    public List<Sell> getSellById(Integer id){
+        return sellService.getSellById(id);
     }
 }

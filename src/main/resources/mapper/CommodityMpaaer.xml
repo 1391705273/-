@@ -27,11 +27,11 @@
         <set>
             <if test="commodityName !=null and commodityName != ''">
                 commodity_name = #{commodityName}
-            </if>
+            </if>,
 
             <if test="amount !=null and amount != ''">
                 amount = #{amount}
-            </if>
+            </if>,
 
             <if test="price !=null and price != ''">
                 price = #{price}

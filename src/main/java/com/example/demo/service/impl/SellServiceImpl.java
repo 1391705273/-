@@ -64,4 +64,14 @@ public class SellServiceImpl implements SellService {
     public List<Sell> getSell() {
         return sellMapper.getSell();
     }
+
+    /**
+     * 根据id查询售出商品的数据
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Sell> getSellById(Integer id) {
+        return sellMapper.getSellById(id);
+    }
 }
