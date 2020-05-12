@@ -55,7 +55,8 @@
 </div>
 
 <div id="insert" style="display: none;">
-    商品名称:<input id="insertCommodityName">
+    商品名称:<select id="insertCommodityName">
+            </select>
     商品数量:<input type="number" min="0" id="insertAmount">
     商品售价:<input type="number" min="0" id="insertSellPrice">
     <button type="submit" id="ton">增加</button>
@@ -70,6 +71,7 @@
 <script>
     $(function () {
         init()
+        commodityName()
     })
     function init() {
         $.ajax({
@@ -165,6 +167,18 @@
 
     function edit(id) {
         location.href = "/editSell?id=" +id;
+    }
+
+    function commodityName() {
+        $.ajax({
+            url:"/getCommodityByName",
+            type:"get",
+            success:function (res) {
+                for ( var i of res) {
+                    $("#insertCommodityName").append('<option>' + i.commodityName +'</option>')
+                }
+            }
+        })
     }
 </script>
 </html>

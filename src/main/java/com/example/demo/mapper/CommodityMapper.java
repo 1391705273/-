@@ -23,6 +23,9 @@ public interface CommodityMapper {
     // 根据商品id查询该商品数据
     List<Commodity> getCommodityById(Integer id);
 
-    // 查询库存商品名称
+    // 查询库存商品数据 根据售出商品名名称与库存商品名称
     Commodity getCommodityName(String name);
+
+    // 查询库存商品名称
+    List<Commodity> getCommodityByName();
 }

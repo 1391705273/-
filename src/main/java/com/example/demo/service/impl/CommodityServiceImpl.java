@@ -67,7 +67,7 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     /**
-     * 查询库存商品名称
+     * 查询查询库存商品数据 根据售出商品名名称与库存商品名称
      * @param name
      * @return
      */
@@ -84,5 +84,14 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getCommodityById(Integer id) {
         return commodityMapper.getCommodityById(id);
+    }
+
+    /**
+     * 库存商品名称
+     * @return
+     */
+    @Override
+    public List<Commodity> getCommodityByName() {
+        return commodityMapper.getCommodityByName();
     }
 }

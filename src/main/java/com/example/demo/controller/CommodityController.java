@@ -81,7 +81,7 @@ public class CommodityController {
     }
 
     /**
-     * 查询库存表中商品名称
+     * 查询库存商品数据 根据售出商品名名称与库存商品名称
      * @param name
      * @return
      */
@@ -89,5 +89,15 @@ public class CommodityController {
     @ResponseBody
     public Commodity getCommodityName(String name){
         return commodityService.getCommodityName(name);
+    }
+
+    /**
+     * 查询库存商品名称
+     * @return
+     */
+    @GetMapping("/getCommodityByName")
+    @ResponseBody
+    public List<Commodity> getCommodityByName(){
+        return commodityService.getCommodityByName();
     }
 }
