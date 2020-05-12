@@ -57,7 +57,7 @@
 <div id="insert" style="display: none;">
     商品名称:<input id="insertCommodityName">
     商品数量:<input type="number" min="0" id="insertAmount">
-    商品进价:<input type="number" min="0" id="insertPrice">
+    商品售价:<input type="number" min="0" id="insertSellPrice">
     <button type="submit" id="ton">增加</button>
     <button id="esc">取消</button>
 </div>
@@ -78,7 +78,7 @@
             data: {
                 commodityName: $("#commodityName").val(),
                 amount:$("#amount").val(),
-                price:$("#sellPrice").val(),
+                SellPrice:$("#insertSellPrice").val(),
             },
             success: function (data) {
                 for (var i of data) {
@@ -125,12 +125,12 @@
 
     $("#ton").click(function () {
             $.ajax({
-                url: "insertSell",
+                url: "/insertSell",
                 type: "post",
                 data: {
                     commodityName: $("#insertCommodityName").val(),
                     amount:$("#insertAmount").val(),
-                    price:$("#insertPrice").val(),
+                    sellPrice:$("#insertSellPrice").val(),
                 },
                 success:function (data) {
                 if ( data == "已成功售出商品!"){
@@ -139,7 +139,7 @@
                         '        <tr>\n' +
                         '            <th data-field="commodityName" id="commodityName">商品名称</th>\n' +
                         '            <th data-field="amount" id="amount">商品数量</th>\n' +
-                        '            <th data-field="price" id="price">商品售价</th>\n' +
+                        '            <th data-field="sellPrice" id="sellPrice">商品售价</th>\n' +
                         '            <th data-field="id" id="id">操作</th>\n' +
                         '        </tr>\n' +
                         '        </thead>')

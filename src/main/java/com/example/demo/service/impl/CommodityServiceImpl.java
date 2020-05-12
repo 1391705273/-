@@ -67,6 +67,16 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     /**
+     * 查询库存商品名称
+     * @param name
+     * @return
+     */
+    @Override
+    public Commodity getCommodityName(String name) {
+        return commodityMapper.getCommodityName(name);
+    }
+
+    /**
      * 根据商品id查询该商品数据
      * @param id
      * @return

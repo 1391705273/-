@@ -79,4 +79,15 @@ public class CommodityController {
     public List<Commodity> getCommodityById(Integer id){
         return commodityService.getCommodityById(id);
     }
+
+    /**
+     * 查询库存表中商品名称
+     * @param name
+     * @return
+     */
+    @GetMapping("/getCommodityName")
+    @ResponseBody
+    public Commodity getCommodityName(String name){
+        return commodityService.getCommodityName(name);
+    }
 }

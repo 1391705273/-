@@ -51,10 +51,6 @@
         商品数量:<input type="number" min="0" id="insertAmount">
         商品进价:<input type="number" min="0" id="insertPrice">
         进货人员:<select id="insertBuyer">
-                    <option value ="admin">admin</option>
-                    <option value ="lzc">lzc</option>
-                    <option value="hyq">hyq</option>
-                    <option value="xyq">xyq</option>
                 </select>
         <button type="submit" id="ton">增加</button>
         <button id="esc">取消</button>
@@ -64,6 +60,7 @@
 <script>
     $(function () {
         init()
+        account()
     })
     function init(){
         $.ajax({
@@ -164,5 +161,17 @@
             location.href = "/index"
         }
     })
+
+    function account() {
+        $.ajax({
+            url:"/getNumber",
+            type:"get",
+            success:function (res) {
+                for ( var i of res) {
+                    $("#insertBuyer").append('<option>' + i.account +'</option>')
+                }
+            }
+        })
+    }
 </script>
 </html>

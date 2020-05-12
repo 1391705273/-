@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Commodity;
 import com.example.demo.mapper.AccountMapper;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,15 @@ public class AccountServiceImpl implements AccountService {
             return "登录成功！";
         }
         return "用户名或密码错误！！";
+    }
+
+    /**
+     * 查询此系统所有工作人员账户
+     * @param account
+     * @return
+     */
+    @Override
+    public List<Account> getNumber(Account account) {
+        return accountMapper.getNumber(account);
     }
 }

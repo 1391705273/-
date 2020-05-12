@@ -35,4 +35,9 @@
         select count(*) from account where account=#{account} and password=#{password}
     </select>
 
+    <!--  查询此系统所有工作人员  -->
+    <select id="getNumber"  resultMap="accountMap">
+        select account from account;
+    </select>
+
 </mapper>

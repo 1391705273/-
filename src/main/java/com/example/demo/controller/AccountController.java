@@ -96,4 +96,10 @@ public class AccountController {
     public String getAccount(String account,String password) {
         return accountService.getAccount(account, password);
     }
+
+    @GetMapping("/getNumber")
+    @ResponseBody
+    public List<Account> getNumber(Account account){
+        return accountService.getNumber(account);
+    }
 }

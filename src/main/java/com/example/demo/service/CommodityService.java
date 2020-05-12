@@ -18,6 +18,9 @@ public interface CommodityService {
     // 查询商品列表
     List<Commodity> getCommodity();
 
+    // 查询商品名称
+    Commodity getCommodityName(String name);
+
     // 根据商品id查询该商品数据
     List<Commodity> getCommodityById(Integer id);
 }

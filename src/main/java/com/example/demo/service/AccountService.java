@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Commodity;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface AccountService {
 
     // 查询有无账户
     String getAccount(String account,String password);
+
+    // 查询此系统所有工作人员
+    List<Account> getNumber(Account account);
 }
