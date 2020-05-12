@@ -7,11 +7,12 @@
         <result property="commodityName" column="commodity_name"/>
         <result property="amount" column="amount"/>
         <result property="sellPrice" column="sell_price"/>
+        <result property="buyer" column="buyer"/>
     </resultMap>
 
     <insert id="insertSell">
-        insert into `sell`(`commodity_name`,amount,sell_price)
-        values (#{commodityName},#{amount},#{sellPrice})
+        insert into `sell`(`commodity_name`,amount,sell_price,buyer)
+        values (#{commodityName},#{amount},#{sellPrice},#{buyer})
     </insert>
 
     <delete id="delSell">
@@ -31,13 +32,17 @@
 
             <if test="sellPrice !=null and sellPrice != ''">
                 sell_price = #{sellPrice}
+            </if>,
+
+            <if test="buyer !=null and buyer != ''">
+                buyer = #{buyer}
             </if>
         </set>
         where id = #{id}
     </update>
 
     <select id="getSell" resultMap="sellMap">
-        select id,commodity_name,amount,sell_price from sell;
+        select id,commodity_name,amount,sell_price,buyer from sell;
     </select>
 
     <select id="getSellById" resultMap="sellMap">

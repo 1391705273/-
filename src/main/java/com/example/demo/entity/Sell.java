@@ -9,4 +9,5 @@ public class Sell {
     private String commodityName;
     private Integer amount;
     private BigDecimal sellPrice;
+    private String buyer;
 }

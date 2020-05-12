@@ -35,6 +35,10 @@
 
             <if test="price !=null and price != ''">
                 price = #{price}
+            </if>,
+
+            <if test="buyer !=null and buyer != ''">
+                buyer = #{buyer}
             </if>
         </set>
         where id = #{id}
