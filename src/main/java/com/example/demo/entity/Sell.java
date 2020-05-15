@@ -6,8 +6,12 @@ import java.math.BigDecimal;
 @Data
 public class Sell {
     private Integer id;
+
     private String commodityName;
+
     private Integer amount;
+
     private BigDecimal sellPrice;
+
     private String buyer;
 }
