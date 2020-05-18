@@ -29,8 +29,7 @@ public class SellServiceImpl implements SellService {
         Integer counst = sellMapper.insertSell(sell);
         Commodity commodity = commodityService.getCommodityName(sell.getCommodityName());
         commodity.setAmount(commodity.getAmount() - sell.getAmount());
-        commodity.setPrice(commodity.getPrice().subtract(sell.getSellPrice()));
-        commodityService.updateCommodity(commodity);
+        commodityService.updateCommodityAmount(commodity.getId(),commodity.getAmount());
         if (counst > 0 ){
             return "已成功售出商品!";
         }

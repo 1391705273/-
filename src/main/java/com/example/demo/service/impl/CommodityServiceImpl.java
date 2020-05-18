@@ -94,4 +94,18 @@ public class CommodityServiceImpl implements CommodityService {
     public List<Commodity> getCommodityByName() {
         return commodityMapper.getCommodityByName();
     }
+
+    /**
+     * 根据商品id修改商品库存数量
+     * @param id
+     * @return
+     */
+    @Override
+    public String updateCommodityAmount(Integer id,Integer amount) {
+        Integer count = commodityMapper.updateCommodityAmount(id,amount);
+        if (count > 0 ){
+            return "已成功修改商品数量";
+        }
+        return "修改商品数量失败";
+    }
 }

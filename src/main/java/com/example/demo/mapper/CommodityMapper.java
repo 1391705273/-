@@ -28,4 +28,7 @@ public interface CommodityMapper {
 
     // 查询库存商品名称
     List<Commodity> getCommodityByName();
+
+    // 根据商品id修改商品库存数量
+    Integer updateCommodityAmount(Integer id,Integer amount );
 }

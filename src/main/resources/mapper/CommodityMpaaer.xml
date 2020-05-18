@@ -43,7 +43,7 @@
 
     <!--  查询商品列表  -->
     <select id="getCommodity" resultMap="commodityMap">
-        select id,commodity_name,amount,price,buyer from commodity;
+        select id,commodity_name,amount,price,buyer from commodity where amount > 0;
     </select>
 
     <!--  根据商品id查询商品数据  -->
@@ -60,4 +60,8 @@
     <select id="getCommodityByName" resultMap="commodityMap">
         select commodity_name from commodity
     </select>
+
+    <update id="updateCommodityAmount">
+        update commodity set amount = #{amount} where id = #{id}
+    </update>
 </mapper>

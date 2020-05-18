@@ -100,4 +100,15 @@ public class CommodityController {
     public List<Commodity> getCommodityByName(){
         return commodityService.getCommodityByName();
     }
+
+    /**
+     *根据商品id修改商品库存数量
+     * @param id
+     * @return
+     */
+    @PostMapping("/updateCommodityAmount")
+    @ResponseBody
+    public String updateCommodityAmount(Integer id,Integer amount){
+        return commodityService.updateCommodityAmount(id,amount);
+    }
 }

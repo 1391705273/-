@@ -26,4 +26,7 @@ public interface CommodityService {
 
     // 查询库存商品名称
     List<Commodity> getCommodityByName();
+
+    // 根据商品id修改库存商品数量
+    String updateCommodityAmount(Integer id,Integer amount);
 }
